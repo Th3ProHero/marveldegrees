@@ -8,11 +8,11 @@ RUN apk add --no-cache openssl
 # Copy package files
 COPY package.json package-lock.json* ./
 
+# Copy prisma schema so the postinstall (prisma generate) script works
+COPY prisma ./prisma/
+
 # Install dependencies
 RUN npm install
-
-# Copy prisma schema for client generation
-COPY prisma ./prisma/
 
 # Generate Prisma client
 RUN npx prisma generate
